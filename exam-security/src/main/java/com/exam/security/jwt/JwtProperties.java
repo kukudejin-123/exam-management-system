@@ -1,10 +1,17 @@
 package com.exam.security.jwt;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * JWT 配置。绑定 application.yml 的 exam.jwt.* 段。
+ *
+ * <p>用 @EnableConfigurationProperties 自带注册，避免使用方忘记在启动类加
+ * {@code @ConfigurationPropertiesScan} 或手动声明 Bean——启动即失败太难排查。
  */
+@Configuration
+@EnableConfigurationProperties
 @ConfigurationProperties(prefix = "exam.jwt")
 public class JwtProperties {
 

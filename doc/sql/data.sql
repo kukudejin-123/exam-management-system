@@ -8,12 +8,12 @@ USE exam;
 -- 四类角色各一个账号
 -- admin / teacher / marker / student，密码均为 123456
 INSERT INTO sys_user (user_no, name, password_hash, role, class_id, status) VALUES
-('ADMIN001',  '系统管理员', '$2a$10$Dow1oZ0U5Yr8vJ5kP7YQOeX9YqZ8X9YqZ8X9YqZ8X9YqZ8X9YqZ8X9', 'ADMIN',   NULL, 1),
-('T2024001',  '张老师',     '$2a$10$Dow1oZ0U5Yr8vJ5kP7YQOeX9YqZ8X9YqZ8X9YqZ8X9YqZ8X9YqZ8X9', 'TEACHER', NULL, 1),
-('M2024001',  '李阅卷',     '$2a$10$Dow1oZ0U5Yr8vJ5kP7YQOeX9YqZ8X9YqZ8X9YqZ8X9YqZ8X9YqZ8X9', 'MARKER',  NULL, 1),
-('S2024001',  '王小明',     '$2a$10$Dow1oZ0U5Yr8vJ5kP7YQOeX9YqZ8X9YqZ8X9YqZ8X9YqZ8X9YqZ8X9', 'STUDENT', 1,    1),
-('S2024002',  '李小红',     '$2a$10$Dow1oZ0U5Yr8vJ5kP7YQOeX9YqZ8X9YqZ8X9YqZ8X9YqZ8X9YqZ8X9', 'STUDENT', 1,    1),
-('S2024003',  '赵小刚',     '$2a$10$Dow1oZ0U5Yr8vJ5kP7YQOeX9YqZ8X9YqZ8X9YqZ8X9YqZ8X9YqZ8X9', 'STUDENT', 1,    1);
+('ADMIN001',  '系统管理员', '$2a$10$Db5BPIn0zRA26EMTaRYj3uw.JSBqEv5kjQFhqJ8PMrAu4oLcm7K.q', 'ADMIN',   NULL, 1),
+('T2024001',  '张老师',     '$2a$10$Db5BPIn0zRA26EMTaRYj3uw.JSBqEv5kjQFhqJ8PMrAu4oLcm7K.q', 'TEACHER', NULL, 1),
+('M2024001',  '李阅卷',     '$2a$10$Db5BPIn0zRA26EMTaRYj3uw.JSBqEv5kjQFhqJ8PMrAu4oLcm7K.q', 'MARKER',  NULL, 1),
+('S2024001',  '王小明',     '$2a$10$Db5BPIn0zRA26EMTaRYj3uw.JSBqEv5kjQFhqJ8PMrAu4oLcm7K.q', 'STUDENT', 1,    1),
+('S2024002',  '李小红',     '$2a$10$Db5BPIn0zRA26EMTaRYj3uw.JSBqEv5kjQFhqJ8PMrAu4oLcm7K.q', 'STUDENT', 1,    1),
+('S2024003',  '赵小刚',     '$2a$10$Db5BPIn0zRA26EMTaRYj3uw.JSBqEv5kjQFhqJ8PMrAu4oLcm7K.q', 'STUDENT', 1,    1);
 
 INSERT INTO sys_class (name, subject, teacher_id) VALUES
 ('计科 2401 班', '数据结构', 2),

@@ -5,11 +5,9 @@ import com.exam.service.clazz.ClassService;
 import com.exam.service.grading.GradingService;
 import com.exam.service.question.QuestionService;
 import org.mockito.Mockito;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import com.exam.security.jwt.JwtProperties;
 
 /**
  * Web 层测试的桩配置。
@@ -20,7 +18,6 @@ import com.exam.security.jwt.JwtProperties;
  * 语义完全一样，且不碰版本解析。
  */
 @TestConfiguration
-@EnableConfigurationProperties(JwtProperties.class)
 public class TestBeans {
 
     @Bean
