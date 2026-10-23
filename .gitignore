@@ -1,0 +1,30 @@
+# Maven
+target/
+*.jar.original
+dependency-reduced-pom.xml
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+
+# Node
+node_modules/
+dist/
+web/.vite/
+npm-debug.log*
+
+# 环境与本地配置
+.env
+*.local
+application-local.yml
+
+# 系统
+.DS_Store
+Thumbs.db
+*.log
