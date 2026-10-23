@@ -66,4 +66,31 @@ cd web && npm run test:unit                   # 前端
 |---|---|---|
 | Phase 0 | 工程骨架（pom、目录、CI、README） | 已完成 |
 | Phase 1 | exam-common（统一响应/异常/工具） | 已完成，23 条用例，行覆盖 81.3% / 分支 65.4% |
-| Phase 2~10 | 数据库、repository、security、service、api、server、前端 | 进行中 |
+| Phase 2 | 数据库脚本 + 10 张核心表 | 已完成，已在 MySQL 8.3 验证 |
+| Phase 3 | exam-repository（实体 + Mapper + 批量插入） | 已完成，6 条集成测试 |
+| Phase 4 | exam-security（JWT + Spring Security + RBAC） | 已完成，8 条测试 |
+| Phase 5 | exam-service（注册登录/CRUD/判分） | 已完成，32 条测试 |
+| Phase 6 | exam-api（Controller + DTO + 全局异常） | 已完成，10 条 Web 层测试 |
+| Phase 7 | exam-server（启动 + 配置 + 容器化） | 已完成，应用真实启动并通过端到端验证 |
+| Phase 8~9 | 组卷引擎、阅卷队列、成绩、前端骨架 | 进行中 |
+
+**测试**：79 条全绿（23 单元 + 6 集成 + 8 + 32 + 10）。
+**端到端已验证**：登录发 JWT、未登录 401、RBAC 403、参数校验 400、软删除、登出失效。
+
+## 环境要求
+
+- JDK 17+、Maven 3.9+、Node 20+（前端）
+- MySQL 8.0、Redis 7（`docker compose -f docker/docker-compose.yml up -d` 一键起）
+- Docker（仅 CI 的 Testcontainers 集成测试需要；本地集成测试默认连本机 MySQL，
+  用 `-Dit.profile=testcontainers` 切换到容器）
+
+## 本地账号
+
+建表后执行 `doc/sql/data.sql`，密码统一为 `123456`：
+
+| 学号/工号 | 角色 |
+|---|---|
+| ADMIN001 | 管理员 |
+| T2024001 | 教师 |
+| M2024001 | 阅卷人 |
+| S2024001 | 学生 |
