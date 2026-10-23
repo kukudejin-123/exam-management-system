@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  question 表的手写 SQL。
+  目前只放批量插入——题库 Excel 导入要一次写几百条，
+  循环调用 insert() 的往返开销不可接受。
+-->
+<mapper namespace="com.exam.repository.mapper.QuestionMapper">
+
+  <sql id="questionColumns">
+    bank_id, type, stem, options, answer, difficulty, chapter, knowledge, status
+  </sql>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    <if test="list == null or list.size() == 0">
+      SELECT 1
+    </if>
+    <if test="list != null and list.size() > 0">
+      INSERT INTO question
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <include refid="questionColumns"/>
+      </trim>
+      VALUES
+      <foreach collection="list" item="q" separator=",">
+        (#{q.bankId}, #{q.type}, #{q.stem}, #{q.options}, #{q.answer},
+         #{q.difficulty}, #{q.chapter}, #{q.knowledge}, #{q.status})
+      </foreach>
+    </if>
+  </insert>
+
+</mapper>

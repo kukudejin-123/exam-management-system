@@ -116,6 +116,11 @@
           <artifactId>jacoco-maven-plugin</artifactId>
           <version>0.8.12</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>3.2.5</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -153,6 +158,26 @@
                   </limits>
                 </rule>
               </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- 集成测试用 failsafe，命名约定 *IT，在 verify 阶段跑；
+           单元测试仍由 surefire 在 test 阶段跑，命名 *Test -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>**/*IT.java</include>
+              </includes>
             </configuration>
           </execution>
         </executions>
