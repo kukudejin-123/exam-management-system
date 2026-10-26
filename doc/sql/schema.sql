@@ -164,6 +164,7 @@ CREATE TABLE exam (
   duration       INT          NOT NULL COMMENT '答题时长（分钟）',
   pass_line      INT          NULL COMMENT '及格线',
   max_attempts   INT          NOT NULL DEFAULT 1 COMMENT '每人可考次数',
+  weight         INT          NOT NULL DEFAULT 1 COMMENT '本场考试在班级总评中的权重',
   score_rule     VARCHAR(16)  NOT NULL DEFAULT 'LAST' COMMENT 'HIGHEST/LAST/AVERAGE',
   retake_policy  TINYINT      NOT NULL DEFAULT 0 COMMENT '缺考是否允许补考：0 否 1 是',
   publish_mode   VARCHAR(16)  NOT NULL DEFAULT 'IMMEDIATE' COMMENT '成绩发布：IMMEDIATE/DELAYED/MANUAL',

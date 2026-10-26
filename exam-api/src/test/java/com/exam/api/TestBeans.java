@@ -4,6 +4,7 @@ import com.exam.repository.mapper.ExamAttemptMapper;
 import com.exam.repository.mapper.ExamMapper;
 import com.exam.repository.mapper.ExamPaperMapper;
 import com.exam.repository.mapper.PaperRuleMapper;
+import com.exam.repository.mapper.OperationLogMapper;
 import com.exam.repository.mapper.QuestionMapper;
 import com.exam.repository.mapper.ScoreMapper;
 import com.exam.repository.mapper.SchoolClassMapper;
@@ -94,6 +95,12 @@ public class TestBeans {
     @Primary
     public ExamAttemptMapper examAttemptMapper() {
         return Mockito.mock(ExamAttemptMapper.class);
+    }
+
+    @Bean
+    @Primary
+    public OperationLogMapper operationLogMapper() {
+        return Mockito.mock(OperationLogMapper.class);
     }
 
     @Bean

@@ -27,6 +27,8 @@ public class Exam extends BaseEntity {
     private Integer duration;
     private Integer passLine;
     private Integer maxAttempts;
+    /** 本场考试在班级总评中的权重 */
+    private Integer weight;
     private String scoreRule;
     /** 缺考是否允许补考：0 否 1 是 */
     private Integer retakePolicy;
@@ -97,6 +99,14 @@ public class Exam extends BaseEntity {
 
     public void setMaxAttempts(Integer maxAttempts) {
         this.maxAttempts = maxAttempts;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public String getScoreRule() {
