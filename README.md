@@ -72,9 +72,10 @@ cd web && npm run test:unit                   # 前端
 | Phase 5 | exam-service（注册登录/CRUD/判分） | 已完成，32 条测试 |
 | Phase 6 | exam-api（Controller + DTO + 全局异常） | 已完成，10 条 Web 层测试 |
 | Phase 7 | exam-server（启动 + 配置 + 容器化） | 已完成，应用真实启动并通过端到端验证 |
-| Phase 8~9 | 组卷引擎、阅卷队列、成绩、前端骨架 | 进行中 |
+| Phase 8 | 组卷引擎 + 主观题阅卷队列 | 已完成，27 条测试 |
+| Phase 9+ | 考试发布、在线答题、成绩管理、前端骨架 | 进行中 |
 
-**测试**：79 条全绿（23 单元 + 6 集成 + 8 + 32 + 10）。
+**测试**：112 条全绿（common 23 + repository 6 集成 + security 8 + service 59 + api 10）。
 **端到端已验证**：登录发 JWT、未登录 401、RBAC 403、参数校验 400、软删除、登出失效。
 
 ## 环境要求
