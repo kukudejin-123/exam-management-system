@@ -1,0 +1,115 @@
+// ============================================================
+// 全局样式与设计规范
+// 对应 wiki/12 页第三节「界面操作的样式及风格」
+// ============================================================
+
+// ---- 设计令牌 ----
+// 主色沿用汇报材料配色；辅色用于强调与完成态
+$primary: #16338D;
+$accent: #D6A975;
+
+// Element Plus 主题变量覆盖，让组件库与我们的色板一致
+:root {
+  --el-color-primary: #{$primary};
+  --el-color-primary-light-3: #4a5da5;
+  --el-color-primary-light-5: #7b88bd;
+  --el-color-primary-light-7: #adb4d4;
+  --el-color-primary-light-8: #c5cae0;
+  --el-color-primary-light-9: #dee1eb;
+  --el-color-primary-dark-2: #112870;
+
+  // 字体：Windows 用微软雅黑，macOS 回退 PingFang
+  --exam-font: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+
+  // 间距体系统一用 4 的倍数，避免随手写 magic number
+  --exam-space-xs: 4px;
+  --exam-space-sm: 8px;
+  --exam-space-md: 16px;
+  --exam-space-lg: 24px;
+}
+
+// ---- 基础 ----
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--exam-font);
+  font-size: 14px;
+  color: #1E2937;
+  background-color: #F5F7FA;
+  -webkit-font-smoothing: antialiased;
+}
+
+// ---- 页面骨架 ----
+// 内容区统一 24px 内边距，不让元素贴边
+.page {
+  padding: var(--exam-space-lg);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--exam-space-md);
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1E2937;
+    margin: 0;
+  }
+
+  &__toolbar {
+    display: flex;
+    gap: var(--exam-space-sm);
+    flex-wrap: wrap;
+    margin-bottom: var(--exam-space-md);
+  }
+}
+
+// ---- 表格规范 ----
+// 统一表格行高与操作列宽度，避免各页面长得不一样
+.exam-table {
+  width: 100%;
+
+  .el-table__row {
+    height: 48px;
+  }
+}
+
+// ---- 表单规范 ----
+// 标签左对齐，必填红星由 Element Plus 处理；这里只管间距
+.exam-form {
+  max-width: 640px;
+
+  .el-form-item {
+    margin-bottom: var(--exam-space-lg);
+  }
+}
+
+// ---- 工具类 ----
+.text-muted {
+  color: #6B7280;
+  font-size: 12px;
+}
+
+.flex-spacer {
+  flex: 1;
+}
+
+// ---- 响应式 ----
+// 1280px 以下折叠侧边菜单；手机端只保留答题相关页面
+@media (max-width: 1280px) {
+  .page {
+    padding: var(--exam-space-md);
+  }
+}
