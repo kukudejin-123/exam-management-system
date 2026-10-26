@@ -36,6 +36,22 @@ public interface ExamPaperMapper extends BaseMapper<ExamPaper> {
             """)
     List<PaperQuestionRow> selectPaperQuestions(@Param("paperId") long paperId);
 
+    /**
+     * 学生取卷：**不含 answer 列**。
+     *
+     * <p>把答案一起返回等于把试卷答案泄露给考生，这是安全缺陷而非优化项。
+     */
+    @Select("""
+            SELECT q.id AS questionId, pq.seq AS seq, pq.score AS score,
+                   q.type AS type, q.stem AS stem, q.options AS options,
+                   NULL AS answer
+            FROM exam_paper_question pq
+            JOIN question q ON q.id = pq.question_id
+            WHERE pq.paper_id = #{paperId} AND q.deleted = 0
+            ORDER BY pq.seq
+            """)
+    List<PaperQuestionRow> selectPaperQuestionsForStudent(@Param("paperId") long paperId);
+
     @Select("SELECT COALESCE(SUM(score), 0) FROM exam_paper_question WHERE paper_id = #{paperId}")
     int sumQuestionScore(@Param("paperId") long paperId);
 }
