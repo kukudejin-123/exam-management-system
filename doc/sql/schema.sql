@@ -206,6 +206,8 @@ CREATE TABLE exam_attempt_item (
   question_id BIGINT NOT NULL,
   answer      JSON   NULL COMMENT '考生作答',
   gained      INT    NULL COMMENT '该题得分（判分后回填）',
+  graded_by   BIGINT       NULL COMMENT '阅卷人（sys_user.id）',
+  graded_at   DATETIME     NULL COMMENT '阅卷时间',
   PRIMARY KEY (id),
   UNIQUE KEY uk_attempt_question (attempt_id, question_id),
   KEY idx_question_id (question_id)
