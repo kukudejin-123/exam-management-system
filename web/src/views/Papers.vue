@@ -2,6 +2,9 @@
   <div class="page">
     <div class="page__header">
       <h2 class="page__title">试卷管理</h2>
+      <el-button v-if="user.canWrite" type="primary" :icon="Plus" @click="composerVisible = true">
+        组卷
+      </el-button>
     </div>
 
     <el-card shadow="never">
@@ -49,6 +52,10 @@
       </div>
     </el-card>
 
+    <el-dialog v-model="composerVisible" title="组卷" width="760px" top="5vh">
+      <PaperComposer @composed="onComposed" />
+    </el-dialog>
+
     <el-dialog v-model="detailVisible" title="试卷题目" width="720px">
       <el-table :data="questions" class="exam-table">
         <el-table-column prop="seq" label="题号" width="70" />
@@ -70,8 +77,10 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores/user'
 import { paperApi } from '@/api/paper'
+import PaperComposer from '@/components/PaperComposer.vue'
 
 const user = useUserStore()
 
@@ -92,6 +101,7 @@ const total = ref(0)
 
 const detailVisible = ref(false)
 const questions = ref([])
+const composerVisible = ref(false)
 
 async function load() {
   loading.value = true
@@ -113,6 +123,11 @@ async function viewQuestions(row) {
   } catch {
     // 拦截器已提示
   }
+}
+
+function onComposed() {
+  composerVisible.value = false
+  load()
 }
 
 async function onPublish(row) {

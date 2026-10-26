@@ -41,6 +41,40 @@ public class PaperService {
         this.json = json;
     }
 
+    /**
+     * 直接按规格组卷，不落组卷规则。
+     *
+     * <p>预览与正式组卷走同一个 composer，保证教师预览看到的就是正式考试得到的。
+     */
+    @Transactional
+    public long composeInline(ComposeRequest request) {
+        if (request.paperName() == null || request.paperName().isBlank()) {
+            throw BizException.param("试卷名称不能为空");
+        }
+        List<PaperComposer.ScoredQuestion> picked =
+                composer.compose(request.bankIds(), request.toSpec(), request.shuffle());
+
+        ExamPaper paper = new ExamPaper();
+        paper.setName(request.paperName().trim());
+        paper.setRuleId(null);   // 无规则来源
+        paper.setStatus(1);      // 草稿
+        paper.setCreatedBy(request.createdBy());
+        paper.setTotalScore(sumScore(picked));
+        paper.setQuestionCount(picked.size());
+        paperMapper.insert(paper);
+
+        for (int i = 0; i < picked.size(); i++) {
+            PaperComposer.ScoredQuestion sq = picked.get(i);
+            paperMapper.insertPaperQuestion(paper.getId(), sq.question().getId(), i + 1, sq.score());
+        }
+        return paper.getId();
+    }
+
+    /** 按规格预览，不落库 */
+    public List<PaperComposer.ScoredQuestion> previewInline(ComposeRequest request) {
+        return composer.compose(request.bankIds(), request.toSpec(), request.shuffle());
+    }
+
     // ---------- 组卷规则 ----------
 
     /**

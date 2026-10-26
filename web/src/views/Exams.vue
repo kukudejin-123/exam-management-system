@@ -2,6 +2,9 @@
   <div class="page">
     <div class="page__header">
       <h2 class="page__title">考试发布</h2>
+      <el-button v-if="user.canWrite" type="primary" :icon="Plus" @click="formVisible = true">
+        发布考试
+      </el-button>
     </div>
 
     <div class="page__toolbar">
@@ -38,6 +41,14 @@
       </el-table>
     </el-card>
 
+    <el-dialog v-model="formVisible" title="发布考试" width="720px" top="5vh">
+      <ExamForm ref="formRef" @submitted="onSubmit" />
+      <template #footer>
+        <el-button @click="formVisible = false">取消</el-button>
+        <el-button type="primary" :loading="saving" @click="onConfirm">发布</el-button>
+      </template>
+    </el-dialog>
+
     <el-dialog v-model="rosterVisible" title="应考 / 实考 / 缺考名单" width="640px">
       <el-descriptions v-if="roster" :column="3" border>
         <el-descriptions-item label="应考">{{ roster.expected }}</el-descriptions-item>
@@ -53,11 +64,21 @@
 
 <script setup>
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
+import { useUserStore } from '@/stores/user'
 import { examApi } from '@/api/exam'
+import ExamForm from '@/components/ExamForm.vue'
+
+const user = useUserStore()
 
 const classIdInput = ref('')
 const rows = ref([])
 const loading = ref(false)
+
+const formVisible = ref(false)
+const formRef = ref()
+const saving = ref(false)
 
 const rosterVisible = ref(false)
 const roster = ref(null)
@@ -82,6 +103,27 @@ async function load() {
     // 拦截器已提示
   } finally {
     loading.value = false
+  }
+}
+
+async function onConfirm() {
+  await formRef.value.submit()
+}
+
+async function onSubmit(payload) {
+  saving.value = true
+  try {
+    const id = await examApi.create(payload)
+    ElMessage.success(`考试已发布，ID ${id}`)
+    formVisible.value = false
+    formRef.value.reset()
+    if (Number(classIdInput.value) === payload.classId) {
+      await load()
+    }
+  } catch {
+    // 拦截器已提示（含时长超窗、及格线超总分等具体原因）
+  } finally {
+    saving.value = false
   }
 }
 
